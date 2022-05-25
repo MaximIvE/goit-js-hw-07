@@ -37,12 +37,17 @@ galleryEl.addEventListener('click', e => {
 });
 
 function viewPicture(image){
-    console.dir(image);
     const instance = basicLightbox.create(`
     <img 
     class="gallery__image" src="${image.dataset.source}"
     data-source="${image.src}"
     alt="${image.alt}"
     />`);
-    instance.show();
+    instance.show(instance);
+
+    document.addEventListener('keydown', e => {
+        if (e.code === "Escape"){
+            instance.close(instance);
+        };
+    });
 };
