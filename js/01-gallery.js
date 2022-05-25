@@ -37,9 +37,12 @@ galleryEl.addEventListener('click', e => {
 });
 
 function viewPicture(image){
-    console.log("Спрацювала функція viewPicture");
-    console.log(image);
+    console.dir(image);
+    const instance = basicLightbox.create(`
+    <img 
+    class="gallery__image" src="${image.dataset.source}"
+    data-source="${image.src}"
+    alt="${image.alt}"
+    />`);
+    instance.show();
 };
-
-
-
