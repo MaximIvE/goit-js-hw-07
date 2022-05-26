@@ -4,17 +4,11 @@ import { galleryItems } from './gallery-items.js';
 const galleryEl = document.querySelector(".gallery");
 
 
-function createEl(src, data, alt){
-    return `<div class="gallery__item">
-    <a class="gallery__link" href="${data}">
-      <img
-        class="gallery__image"
-        src="${src}"
-        data-source="${data}"
-        alt="${alt}"
-      />
-    </a>
-  </div>`
+function createEl(src, href, alt){
+    return `<a class="gallery__item" href="${href}">
+    <img class="gallery__image" src="${src}" alt="${alt}" />
+  </a>`
+
 };
 
 const galleryStringEl = galleryItems.reduce((contanier, galleryItem) => {
