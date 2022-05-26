@@ -1,8 +1,6 @@
 import { galleryItems } from './gallery-items.js';
 // Change code below this line
 
-console.log(galleryItems);
-
 const galleryEl = document.querySelector(".gallery");
 
 
@@ -19,13 +17,19 @@ function createEl(src, data, alt){
   </div>`
 };
 
-const galleryString = galleryItems.reduce((contanier, galleryItem) => {
+const galleryStringEl = galleryItems.reduce((contanier, galleryItem) => {
   const {preview, original, description} = galleryItem;
   
   contanier = contanier + createEl(preview, original, description);
   return contanier;
 }, "");
 
-galleryEl.insertAdjacentHTML("beforeend", galleryString);
+galleryEl.insertAdjacentHTML("beforeend", galleryStringEl);
 
-
+galleryEl.addEventListener("click", e=>{
+  e.preventDefault();
+  const picture = e.target;
+  if(picture.className !== "gallery__image"){return};
+  console.log("Клікнули по картинці");
+  
+})
