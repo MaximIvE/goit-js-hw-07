@@ -20,10 +20,9 @@ const galleryStringEl = galleryItems.reduce((contanier, galleryItem) => {
 
 galleryEl.insertAdjacentHTML("beforeend", galleryStringEl);
 
-galleryEl.addEventListener("click", e=>{
-  e.preventDefault();
-  const picture = e.target;
-  if(picture.className !== "gallery__image"){return};
-  console.log("Клікнули по картинці");
-  
-})
+
+var lightbox = new SimpleLightbox('.gallery a', {
+  captionsData: "alt",
+  captionPosition: 'bottom',
+  captionDelay: 250,
+});
