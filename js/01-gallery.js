@@ -2,22 +2,44 @@ import { galleryItems } from './gallery-items.js';
 
 // #1 Додаємо до галереї розмітку картинок
 const galleryEl = document.querySelector(".gallery");
+let instance = {};
 
-function createEl({original, preview, description}){
-   return `<div class="gallery__item">
-    <a class="gallery__link" href="${original}">
+function createEl(alt, src, data_souce){
+   return `
+   <div class="gallery__item">
+    <a class="gallery__link" href="${data_souce}">
         <img
         class="gallery__image"
-        src="${preview}"
-        data-source="${original}"
-        alt="${description}"
+        src="${src}"
+        data-source="${data_souce}"
+        alt="${alt}"
         />
     </a>
     </div>`;
 };
 
+function createModal(image){
+    return `<img 
+    class="gallery__image" src="${image.dataset.source}"
+    data-source="${image.src}"
+    alt="${image.alt}"
+    />`;
+};
+
+function showInstance(currentItem){
+    instance = basicLightbox.create(`${createModal(currentItem)}`);
+    instance.show(instance);
+};
+
+function closeInstance(e){
+    if (e.code === "Escape"){
+        instance.close();
+    };
+}
+
 const collection = galleryItems.map((element)=>{
-    return createEl(element);
+    const {original, preview, description} = element;
+    return createEl(description, preview, original);
 }).join("");
 
 galleryEl.insertAdjacentHTML("beforeend", collection);
@@ -28,26 +50,14 @@ const imageEl = document.querySelector(".gallery__image");
 
 galleryEl.addEventListener('click', e => {
     e.preventDefault();
-    const currentItem = e.target;
-    if (currentItem.className !== "gallery__image"){
+    if (e.target.className !== "gallery__image"){
         return;
     };
-
-    viewPicture(currentItem);
+    showInstance(e.target);
 });
 
-function viewPicture(image){
-    const instance = basicLightbox.create(`
-    <img 
-    class="gallery__image" src="${image.dataset.source}"
-    data-source="${image.src}"
-    alt="${image.alt}"
-    />`);
-    instance.show(instance);
-
-    document.addEventListener('keydown', e => {
-        if (e.code === "Escape"){
-            instance.close(instance);
-        };
-    });
-};
+// Цей слухач починає реагувати на натискання клавіш rkfdsfnehb тільки після спрацьовування події 'click'.  
+galleryEl.addEventListener("keydown", e => {
+    console.log("abc");
+    closeInstance(e)
+});
