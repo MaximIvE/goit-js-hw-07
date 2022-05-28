@@ -58,6 +58,6 @@ galleryEl.addEventListener('click', e => {
 
 // Цей слухач починає реагувати на натискання клавіш rkfdsfnehb тільки після спрацьовування події 'click'.  
 galleryEl.addEventListener("keydown", e => {
-    console.log("abc");
-    closeInstance(e)
+    if (!instance.visible()){return};
+    closeInstance(e);
 });
